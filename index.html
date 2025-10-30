@@ -508,12 +508,11 @@
 }
 .<span class="code-function">frame</span>(height: <span class="code-string">40</span>)
 .<span class="code-function">padding</span>(.<span class="code-property">horizontal</span>, <span class="code-string">24</span>)
-.<span class="code-function">overlay</span>(
-  <span class="code-function">RoundedRectangle</span>(cornerRadius: <span class="code-string">6</span>)
-    .<span class="code-function">stroke</span>(<span class="code-function">Color</span>.<span class="code-property">gray</span>, lineWidth: <span class="code-string">1</span>)
-)</div>
+.<span class="code-function">background</span>
+  .<span class="code-function">strokeColor</span>(<span class="code-function">Color</span>.<span class="code-property">gray</span>)
+  .<span class="code-function">strokeWidth</span>(<span class="code-string">1</span>)</div>
                             <div class="info-note" style="margin-top: 16px;" id="iosInfoNote">
-                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. SwiftUI's <code>.overlay()</code> modifier draws the stroke without affecting the frame size — no border needed on the filled button.
+                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. Using <code>.background.strokeWidth</code> and <code>.background.strokeColor</code> applies the stroke without affecting the frame size — no stroke needed on the filled button.
                             </div>
                         </div>
                     </div>
@@ -839,7 +838,7 @@
 }`;
                 webInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> is the key! With <code>box-sizing: border-box</code>, the border on the outlined button is drawn <em>inside</em> the total height. The filled button needs no border at all — both maintain identical heights.';
                 
-                iosInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. SwiftUI\'s <code>.overlay()</code> modifier draws the stroke without affecting the frame size — no border needed on the filled button.';
+                iosInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. Using <code>.background.strokeWidth</code> and <code>.background.strokeColor</code> applies the stroke without affecting the frame size — no stroke needed on the filled button.';
                 
                 androidInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Compose\'s <code>OutlinedButton</code> automatically includes the border within the height — no border needed on the standard <code>Button</code>.';
             } else {
@@ -862,7 +861,7 @@
 }`;
                 webInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, <strong>both buttons need the same border width</strong>. Since buttons often use opacity states (hover, active), the filled button would need a <code>transparent</code> border to remain truly invisible across all states. The outlined button has a visible 1px border. Same padding + same border width = same height. <em>Note: This approach is more complex to maintain in a design system.</em>';
                 
-                iosInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, both buttons use equal <code>.padding()</code>. The outlined button uses <code>.overlay()</code> with <code>.stroke()</code> which doesn\'t affect layout dimensions. Heights match naturally based on content + padding.';
+                iosInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, both buttons use equal <code>.padding()</code>. The outlined button uses <code>.background.strokeWidth</code> and <code>.background.strokeColor</code> which don\'t affect layout dimensions. Heights match naturally based on content + padding.';
                 
                 androidInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, <code>Button</code> and <code>OutlinedButton</code> share the same <code>contentPadding</code>. Compose\'s <code>OutlinedButton</code> includes the border within its layout, so both components calculate the same height from content + padding.';
             }
