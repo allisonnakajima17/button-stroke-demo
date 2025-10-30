@@ -558,9 +558,12 @@
 }
 
 <span class="code-comment">// Outlined Button</span>
-<span class="code-function">OutlinedButton</span>(
+<span class="code-function">Button</span>(
   onClick = { <span class="code-comment">/* action */</span> },
-  modifier = <span class="code-function">Modifier</span>.<span class="code-function">height</span>(<span class="code-string">40.dp</span>),
+  modifier = <span class="code-function">Modifier</span>
+    .<span class="code-function">height</span>(<span class="code-string">40.dp</span>)
+    .<span class="code-function">strokeWidth</span>(<span class="code-string">1.dp</span>)
+    .<span class="code-function">strokeColor</span>(<span class="code-function">Color</span>.<span class="code-property">Gray</span>),
   contentPadding = <span class="code-function">PaddingValues</span>(
     horizontal = <span class="code-string">24.dp</span>
   )
@@ -568,7 +571,7 @@
   <span class="code-function">Text</span>(<span class="code-string">"Button"</span>)
 }</div>
                             <div class="info-note" style="margin-top: 16px;" id="androidInfoNote">
-                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Compose's <code>OutlinedButton</code> automatically includes the border within the height — no border needed on the standard <code>Button</code>.
+                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Using <code>.strokeWidth()</code> and <code>.strokeColor()</code> modifiers applies the stroke without affecting the height — no stroke needed on the filled button.
                             </div>
                         </div>
                     </div>
@@ -840,7 +843,7 @@
                 
                 iosInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. Using <code>.background.strokeWidth</code> and <code>.background.strokeColor</code> applies the stroke without affecting the frame size — no stroke needed on the filled button.';
                 
-                androidInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Compose\'s <code>OutlinedButton</code> automatically includes the border within the height — no border needed on the standard <code>Button</code>.';
+                androidInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Using <code>.strokeWidth()</code> and <code>.strokeColor()</code> modifiers applies the stroke without affecting the height — no stroke needed on the filled button.';
             } else {
                 webCodeBlock.innerHTML = `<span class="code-comment">/* Filled Button - transparent border required */</span>
 <span class="code-keyword">.button</span> {
@@ -863,7 +866,7 @@
                 
                 iosInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, both buttons use equal <code>.padding()</code>. The outlined button uses <code>.background.strokeWidth</code> and <code>.background.strokeColor</code> which don\'t affect layout dimensions. Heights match naturally based on content + padding.';
                 
-                androidInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, <code>Button</code> and <code>OutlinedButton</code> share the same <code>contentPadding</code>. Compose\'s <code>OutlinedButton</code> includes the border within its layout, so both components calculate the same height from content + padding.';
+                androidInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, both buttons use the same <code>contentPadding</code>. Using <code>.strokeWidth()</code> and <code>.strokeColor()</code> modifiers applies the stroke without affecting layout dimensions. Heights match naturally based on content + padding.';
             }
             
             // Update button display
