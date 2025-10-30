@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Button Stroke Treatment</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #fafafa;
+            color: #171717;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+        
+        .header {
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.04em;
+        }
+        
+        .header p {
+            font-size: 1rem;
+            color: #737373;
+            max-width: 600px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+        
+        .section-description {
+            color: #737373;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+        }
+        
+        .demo-container {
+            background: white;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 48px;
+            margin-bottom: 16px;
+        }
+        
+        .button-row {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 48px;
+        }
+        
+        .button-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .button-label {
+            font-size: 0.875rem;
+            color: #737373;
+        }
+        
+        .demo-button {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-sizing: border-box;
+            border-radius: 6px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .demo-button.filled {
+            background: #171717;
+            color: #ffffff;
+            border: none;
+            padding: 0 32px;
+            height: 40px;
+        }
+        
+        .demo-button.outlined {
+            background: white;
+            color: #171717;
+            border: 1px solid #e5e5e5;
+            padding: 0 32px;
+            height: 40px;
+        }
+        
+        .demo-button:hover {
+            opacity: 0.85;
+        }
+        
+        .height-display {
+            display: flex;
+            gap: 16px;
+            margin-top: 24px;
+        }
+        
+        .height-badge {
+            background: #f4f4f5;
+            border: 1px solid #e5e5e5;
+            padding: 12px 16px;
+            border-radius: 8px;
+            flex: 1;
+        }
+        
+        .height-badge-label {
+            font-size: 0.75rem;
+            color: #737373;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        
+        .height-badge-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #10b981;
+        }
+        
+        .height-badge-value.mismatch {
+            color: #ef4444;
+        }
+        
+        .platform-comparison {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 32px;
+            align-items: start;
+        }
+        
+        @media (max-width: 968px) {
+            .platform-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .platform-demo {
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .platform-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e5e5e5;
+            background: #fafafa;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .platform-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .platform-subtitle {
+            font-size: 0.8rem;
+            color: #737373;
+        }
+        
+        .platform-content-wrapper {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .platform-preview {
+            padding: 40px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: flex-start;
+            min-height: 240px;
+            justify-content: flex-start;
+        }
+        
+        .button-with-height {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        
+        .height-info {
+            font-size: 0.75rem;
+            color: #10b981;
+            font-weight: 600;
+            font-family: 'Monaco', monospace;
+        }
+        
+        .height-info.mismatch {
+            color: #ef4444;
+        }
+        
+        .platform-button {
+            font-family: 'TT Norms', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-sizing: border-box;
+            border-radius: 100px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .platform-button.filled {
+            background: #171717;
+            color: #ffffff;
+            border: none;
+            padding: 0 24px;
+            height: 40px;
+        }
+        
+        .platform-button.outlined {
+            background: white;
+            color: #171717;
+            border: 1px solid #e5e5e5;
+            padding: 0 24px;
+            height: 40px;
+        }
+        
+        .code-section {
+            border-top: 1px solid #e5e5e5;
+        }
+        
+        .code-toggle {
+            width: 100%;
+            padding: 12px 24px;
+            background: #fafafa;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #171717;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.15s ease;
+        }
+        
+        .code-toggle:hover {
+            background: #f4f4f5;
+        }
+        
+        .code-toggle-icon {
+            transition: transform 0.2s ease;
+        }
+        
+        .code-toggle.active .code-toggle-icon {
+            transform: rotate(90deg);
+        }
+        
+        .code-content {
+            display: none;
+            padding: 24px;
+            background: #fafafa;
+        }
+        
+        .code-content.active {
+            display: block;
+        }
+        
+        .code-block {
+            background: #171717;
+            color: #e5e5e5;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+        
+        .code-comment {
+            color: #888;
+        }
+        
+        .code-keyword {
+            color: #c792ea;
+        }
+        
+        .code-property {
+            color: #82aaff;
+        }
+        
+        .code-string {
+            color: #c3e88d;
+        }
+        
+        .code-function {
+            color: #ffcb6b;
+        }
+        
+        .info-note {
+            margin-top: 16px;
+            padding: 12px 16px;
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+        
+        .info-note strong {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        .info-note code {
+            background: #eff6ff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            color: #1e3a8a;
+        }
+        
+        .recommendation-note {
+            margin-top: 30px;
+            padding: 12px 16px;
+            background: #dbeafe;
+            border: 1px solid #bfdbfe;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            color: #1e40af;
+            line-height: 1.6;
+        }
+        
+        .recommendation-note strong {
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+        
+        .feasibility-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: #dcfce7;
+            color: #166534;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Button Stroke Treatment</h1>
+            <p>Demonstrating two approaches for consistent button heights with strokes across Web, iOS, and Android platforms.</p>
+        </div>
+        
+        <!-- Approach Toggle -->
+        <div class="section">
+            <div style="margin-bottom: 16px;">
+                <div style="display: inline-flex; background: #e5e5e5; padding: 4px; border-radius: 100px; gap: 0;">
+                    <button class="size-btn active" id="fixedHeightBtn" onclick="switchApproach('fixed')" style="padding: 12px 24px; border: none; background: #171717; color: white; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.875rem; transition: all 0.2s;">
+                        Fixed Height (Recommended)
+                    </button>
+                    <button class="size-btn" id="paddingBasedBtn" onclick="switchApproach('padding')" style="padding: 12px 24px; border: none; background: transparent; color: #737373; border-radius: 100px; cursor: pointer; font-weight: 500; font-size: 0.875rem; transition: all 0.2s;">
+                        Padding-Based Height
+                    </button>
+                </div>
+            </div>
+            
+            <p class="section-description" id="approachDescription" style="margin-bottom: 30px;">Fixed heights ensure both filled and outlined buttons are identical in size across all platforms. No invisible borders, padding compensation, or complex workarounds required.</p>
+            
+            <div class="platform-comparison">
+                <!-- Web (CSS) -->
+                <div class="platform-demo">
+                    <div class="platform-header">
+                        <div class="platform-title">
+                            🌐 Web (CSS)
+                        </div>
+                        <div class="platform-subtitle" id="webSubtitle">Using box-sizing: border-box + fixed height</div>
+                    </div>
+                    
+                    <div class="platform-content-wrapper">
+                    <div class="platform-preview">
+                        <div class="button-with-height">
+                            <button class="platform-button filled" id="webFilled">Button</button>
+                            <div class="height-info" id="webFilledHeight">Height: 38px</div>
+                        </div>
+                        <div class="button-with-height">
+                            <button class="platform-button outlined" id="webOutlined">Button</button>
+                            <div class="height-info" id="webOutlinedHeight">Height: 38px</div>
+                        </div>
+                    </div>
+                    </div>
+                    
+                    <div class="code-section">
+                        <button class="code-toggle" onclick="toggleCode('web')">
+                            <span class="code-toggle-icon">▶</span>
+                            Show code
+                        </button>
+                        <div class="code-content" id="web-code">
+                            <div class="code-block" id="webCodeBlock"><span class="code-comment">/* Filled Button - no border needed */</span>
+<span class="code-keyword">.button</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">height</span>: <span class="code-string">40px</span>;
+  <span class="code-property">padding</span>: <span class="code-string">0 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">color</span>: <span class="code-string">#fff</span>;
+  <span class="code-property">border</span>: <span class="code-string">none</span>;
+}
+
+<span class="code-comment">/* Outlined Button - border included in height */</span>
+<span class="code-keyword">.button-outlined</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">height</span>: <span class="code-string">40px</span>;
+  <span class="code-property">padding</span>: <span class="code-string">0 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">white</span>;
+  <span class="code-property">color</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">border</span>: <span class="code-string">1px solid #e5e5e5</span>;
+}</div>
+                            <div class="info-note" style="margin-top: 16px;" id="webInfoNote">
+                                <strong>How it works:</strong> The <strong>fixed height</strong> is the key! With <code>box-sizing: border-box</code>, the border on the outlined button is drawn <em>inside</em> the total height. The filled button needs no border at all — both maintain identical heights.
+                </div>
+            </div>
+                    </div>
+                </div>
+                
+                <!-- iOS (SwiftUI) -->
+                <div class="platform-demo">
+                    <div class="platform-header">
+                        <div class="platform-title">
+                            🍎 SwiftUI (iOS)
+                        </div>
+                        <div class="platform-subtitle">Using .frame(height:)</div>
+                </div>
+                
+                    <div class="platform-content-wrapper">
+                    <div class="platform-preview">
+                        <div class="button-with-height">
+                            <button class="platform-button filled" id="iosFilled">Button</button>
+                            <div class="height-info" id="iosFilledHeight">Height: 38px</div>
+                        </div>
+                        <div class="button-with-height">
+                            <button class="platform-button outlined" id="iosOutlined">Button</button>
+                            <div class="height-info" id="iosOutlinedHeight">Height: 38px</div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="code-section">
+                        <button class="code-toggle" onclick="toggleCode('ios')">
+                            <span class="code-toggle-icon">▶</span>
+                            Show code
+                        </button>
+                        <div class="code-content" id="ios-code">
+                            <div class="code-block"><span class="code-comment">// Filled Button</span>
+<span class="code-function">Button</span>(<span class="code-string">"Button"</span>) {
+  <span class="code-comment">// action</span>
+}
+.<span class="code-function">frame</span>(height: <span class="code-string">40</span>)
+.<span class="code-function">padding</span>(.<span class="code-property">horizontal</span>, <span class="code-string">24</span>)
+.<span class="code-function">background</span>(<span class="code-function">Color</span>.<span class="code-property">black</span>)
+.<span class="code-function">foregroundColor</span>(.<span class="code-property">white</span>)
+
+<span class="code-comment">// Outlined Button</span>
+<span class="code-function">Button</span>(<span class="code-string">"Button"</span>) {
+  <span class="code-comment">// action</span>
+}
+.<span class="code-function">frame</span>(height: <span class="code-string">40</span>)
+.<span class="code-function">padding</span>(.<span class="code-property">horizontal</span>, <span class="code-string">24</span>)
+.<span class="code-function">overlay</span>(
+  <span class="code-function">RoundedRectangle</span>(cornerRadius: <span class="code-string">6</span>)
+    .<span class="code-function">stroke</span>(<span class="code-function">Color</span>.<span class="code-property">gray</span>, lineWidth: <span class="code-string">1</span>)
+)</div>
+                            <div class="info-note" style="margin-top: 16px;" id="iosInfoNote">
+                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. SwiftUI's <code>.overlay()</code> modifier draws the stroke without affecting the frame size — no border needed on the filled button.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Android (Compose) -->
+                <div class="platform-demo">
+                    <div class="platform-header">
+                        <div class="platform-title">
+                            🤖 Kotlin (Android)
+                        </div>
+                        <div class="platform-subtitle">Using Modifier.height()</div>
+                </div>
+                
+                    <div class="platform-content-wrapper">
+                    <div class="platform-preview">
+                        <div class="button-with-height">
+                            <button class="platform-button filled" id="androidFilled">Button</button>
+                            <div class="height-info" id="androidFilledHeight">Height: 38px</div>
+                        </div>
+                        <div class="button-with-height">
+                            <button class="platform-button outlined" id="androidOutlined">Button</button>
+                            <div class="height-info" id="androidOutlinedHeight">Height: 38px</div>
+                        </div>
+                    </div>
+                </div>
+                
+                    <div class="code-section">
+                        <button class="code-toggle" onclick="toggleCode('android')">
+                            <span class="code-toggle-icon">▶</span>
+                            Show code
+                        </button>
+                        <div class="code-content" id="android-code">
+                            <div class="code-block"><span class="code-comment">// Filled Button</span>
+<span class="code-function">Button</span>(
+  onClick = { <span class="code-comment">/* action */</span> },
+  modifier = <span class="code-function">Modifier</span>.<span class="code-function">height</span>(<span class="code-string">40.dp</span>),
+  contentPadding = <span class="code-function">PaddingValues</span>(
+    horizontal = <span class="code-string">24.dp</span>
+  )
+) {
+  <span class="code-function">Text</span>(<span class="code-string">"Button"</span>)
+}
+
+<span class="code-comment">// Outlined Button</span>
+<span class="code-function">OutlinedButton</span>(
+  onClick = { <span class="code-comment">/* action */</span> },
+  modifier = <span class="code-function">Modifier</span>.<span class="code-function">height</span>(<span class="code-string">40.dp</span>),
+  contentPadding = <span class="code-function">PaddingValues</span>(
+    horizontal = <span class="code-string">24.dp</span>
+  )
+) {
+  <span class="code-function">Text</span>(<span class="code-string">"Button"</span>)
+}</div>
+                            <div class="info-note" style="margin-top: 16px;" id="androidInfoNote">
+                                <strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Compose's <code>OutlinedButton</code> automatically includes the border within the height — no border needed on the standard <code>Button</code>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison Chart -->
+        <div class="section">
+            <div class="comparison-section" style="margin-bottom: 30px;">
+                <h2 style="font-size: 1.8rem; margin-bottom: 10px; color: #101010;">Approach Comparison</h2>
+                <p style="color: #666; margin-bottom: 20px; font-size: 1rem;">How each method performs across platforms</p>
+                
+                <!-- Recommendation -->
+                <div class="recommendation-note" style="margin-bottom: 30px;">
+                    <p style="margin: 0;"><strong>Recommendation:</strong> Fixed height approach is simpler and more consistent across all platforms, especially for Web where the padding-based approach requires transparent borders and extra maintenance.</p>
+                </div>
+                
+                <!-- Fixed Height Table -->
+                <div style="margin-bottom: 40px;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: #171717; font-weight: 600;">Fixed Height Approach</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #e5e5e5;">
+                                    <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #171717; width: 40%;">Criteria</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🌐 Web</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🍎 iOS</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🤖 Android</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Simple Implementation</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Height Consistency</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">No Transparent Border Needed</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Easy to Maintain</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Padding-Based Table -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: #171717; font-weight: 600;">Padding-Based Approach</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #e5e5e5;">
+                                    <th style="padding: 12px 16px; text-align: left; font-weight: 600; color: #171717; width: 40%;">Criteria</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🌐 Web</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🍎 iOS</th>
+                                    <th style="padding: 12px 16px; text-align: center; font-weight: 600; color: #171717; width: 20%;">🤖 Android</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Simple Implementation</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">⚠</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Height Consistency</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">No Transparent Border Needed</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✗</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                                <tr style="border-bottom: 1px solid #e5e5e5;">
+                                    <td style="padding: 12px 16px; font-weight: 500;">Easy to Maintain</td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #fee2e2; color: #991b1b; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✗</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                    <td style="padding: 12px 16px; text-align: center;"><span style="display: inline-block; background: #dcfce7; color: #166534; padding: 4px 12px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">✓</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const toggleBoxSizing = document.getElementById('toggleBoxSizing');
+        
+        const platforms = [
+            {
+                name: 'web',
+                filled: document.getElementById('webFilled'),
+                outlined: document.getElementById('webOutlined'),
+                filledHeight: document.getElementById('webFilledHeight'),
+                outlinedHeight: document.getElementById('webOutlinedHeight')
+            },
+            {
+                name: 'ios',
+                filled: document.getElementById('iosFilled'),
+                outlined: document.getElementById('iosOutlined'),
+                filledHeight: document.getElementById('iosFilledHeight'),
+                outlinedHeight: document.getElementById('iosOutlinedHeight')
+            },
+            {
+                name: 'android',
+                filled: document.getElementById('androidFilled'),
+                outlined: document.getElementById('androidOutlined'),
+                filledHeight: document.getElementById('androidFilledHeight'),
+                outlinedHeight: document.getElementById('androidOutlinedHeight')
+            }
+        ];
+        
+        function updateButtons() {
+            platforms.forEach(platform => {
+                // All platforms use border-box (or equivalent)
+                [platform.filled, platform.outlined].forEach(btn => {
+                    btn.style.boxSizing = 'border-box';
+                });
+                
+                // Apply approach-specific styles
+                if (currentApproach === 'fixed') {
+                    // Fixed height approach - simpler!
+                    platform.filled.style.height = '40px';
+                    platform.filled.style.padding = '0 24px';
+                    platform.filled.style.border = 'none';
+                    platform.filled.style.background = '#171717';
+                    platform.filled.style.color = '#ffffff';
+                    
+                    platform.outlined.style.height = '40px';
+                    platform.outlined.style.padding = '0 24px';
+                    platform.outlined.style.border = '1px solid #e5e5e5';
+                    platform.outlined.style.background = 'white';
+                    platform.outlined.style.color = '#171717';
+                } else {
+                    // Padding-based approach - requires transparent border
+                    platform.filled.style.removeProperty('height');
+                    platform.filled.style.padding = '10px 24px';
+                    platform.filled.style.background = '#171717';
+                    platform.filled.style.color = '#ffffff';
+                    platform.filled.style.border = '1px solid transparent'; // Transparent for opacity states
+                    platform.filled.style.borderWidth = '1px';
+                    platform.filled.style.borderStyle = 'solid';
+                    platform.filled.style.borderColor = 'transparent';
+                    
+                    platform.outlined.style.removeProperty('height');
+                    platform.outlined.style.padding = '10px 24px';
+                    platform.outlined.style.background = 'white';
+                    platform.outlined.style.color = '#171717';
+                    platform.outlined.style.border = '1px solid #e5e5e5';
+                    platform.outlined.style.borderWidth = '1px';
+                    platform.outlined.style.borderStyle = 'solid';
+                    platform.outlined.style.borderColor = '#e5e5e5';
+                }
+                
+                // Force reflow to ensure styles are applied
+                platform.filled.offsetHeight;
+                platform.outlined.offsetHeight;
+                
+                // Measure and display heights
+                setTimeout(() => {
+                    const filledHeight = platform.filled.offsetHeight;
+                    const outlinedHeight = platform.outlined.offsetHeight;
+                    
+                    platform.filledHeight.textContent = `Height: ${filledHeight}px`;
+                    platform.outlinedHeight.textContent = `Height: ${outlinedHeight}px`;
+                    
+                    // Update styling based on whether heights match
+                    if (filledHeight === outlinedHeight) {
+                        platform.filledHeight.classList.remove('mismatch');
+                        platform.outlinedHeight.classList.remove('mismatch');
+                    } else {
+                        platform.filledHeight.classList.add('mismatch');
+                        platform.outlinedHeight.classList.add('mismatch');
+                    }
+                }, 50);
+            });
+        }
+        
+        function toggleCode(platform) {
+            const codeContent = document.getElementById(`${platform}-code`);
+            const button = event.currentTarget;
+            
+            codeContent.classList.toggle('active');
+            button.classList.toggle('active');
+        }
+        
+        let currentApproach = 'fixed';
+        
+        function switchApproach(approach) {
+            currentApproach = approach;
+            
+            // Update segmented control styles
+            const fixedBtn = document.getElementById('fixedHeightBtn');
+            const paddingBtn = document.getElementById('paddingBasedBtn');
+            
+            if (approach === 'fixed') {
+                fixedBtn.style.background = '#171717';
+                fixedBtn.style.color = 'white';
+                paddingBtn.style.background = 'transparent';
+                paddingBtn.style.color = '#737373';
+            } else {
+                paddingBtn.style.background = '#171717';
+                paddingBtn.style.color = 'white';
+                fixedBtn.style.background = 'transparent';
+                fixedBtn.style.color = '#737373';
+            }
+            
+            // Update description
+            const description = document.getElementById('approachDescription');
+            const webSubtitle = document.getElementById('webSubtitle');
+            if (approach === 'fixed') {
+                description.textContent = 'Fixed heights ensure both filled and outlined buttons are identical in size across all platforms. No invisible borders, padding compensation, or complex workarounds required.';
+                webSubtitle.textContent = 'Using box-sizing: border-box + fixed height';
+            } else {
+                description.textContent = 'Padding-based heights require the filled button to have an invisible border (matching its background) to maintain height consistency with the outlined button.';
+                webSubtitle.textContent = 'Using box-sizing: border-box + padding + transparent border';
+            }
+            
+            // Update platform code and explanations
+            const webCodeBlock = document.getElementById('webCodeBlock');
+            const webInfoNote = document.getElementById('webInfoNote');
+            const iosInfoNote = document.getElementById('iosInfoNote');
+            const androidInfoNote = document.getElementById('androidInfoNote');
+            
+            if (approach === 'fixed') {
+                webCodeBlock.innerHTML = `<span class="code-comment">/* Filled Button - no border needed */</span>
+<span class="code-keyword">.button</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">height</span>: <span class="code-string">40px</span>;
+  <span class="code-property">padding</span>: <span class="code-string">0 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">color</span>: <span class="code-string">#fff</span>;
+  <span class="code-property">border</span>: <span class="code-string">none</span>;
+}
+
+<span class="code-comment">/* Outlined Button - border included in height */</span>
+<span class="code-keyword">.button-outlined</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">height</span>: <span class="code-string">40px</span>;
+  <span class="code-property">padding</span>: <span class="code-string">0 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">white</span>;
+  <span class="code-property">color</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">border</span>: <span class="code-string">1px solid #e5e5e5</span>;
+}`;
+                webInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> is the key! With <code>box-sizing: border-box</code>, the border on the outlined button is drawn <em>inside</em> the total height. The filled button needs no border at all — both maintain identical heights.';
+                
+                iosInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>.frame(height:)</code> ensures both buttons are the same height. SwiftUI\'s <code>.overlay()</code> modifier draws the stroke without affecting the frame size — no border needed on the filled button.';
+                
+                androidInfoNote.innerHTML = '<strong>How it works:</strong> The <strong>fixed height</strong> with <code>Modifier.height()</code> ensures both buttons are the same height. Compose\'s <code>OutlinedButton</code> automatically includes the border within the height — no border needed on the standard <code>Button</code>.';
+            } else {
+                webCodeBlock.innerHTML = `<span class="code-comment">/* Filled Button - transparent border required */</span>
+<span class="code-keyword">.button</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">padding</span>: <span class="code-string">10px 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">color</span>: <span class="code-string">#fff</span>;
+  <span class="code-property">border</span>: <span class="code-string">1px solid transparent</span>; <span class="code-comment">/* Invisible */</span>
+}
+
+<span class="code-comment">/* Outlined Button */</span>
+<span class="code-keyword">.button-outlined</span> {
+  <span class="code-property">box-sizing</span>: <span class="code-string">border-box</span>;
+  <span class="code-property">padding</span>: <span class="code-string">10px 24px</span>;
+  <span class="code-property">background</span>: <span class="code-string">white</span>;
+  <span class="code-property">color</span>: <span class="code-string">#171717</span>;
+  <span class="code-property">border</span>: <span class="code-string">1px solid #e5e5e5</span>;
+}`;
+                webInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, <strong>both buttons need the same border width</strong>. Since buttons often use opacity states (hover, active), the filled button would need a <code>transparent</code> border to remain truly invisible across all states. The outlined button has a visible 1px border. Same padding + same border width = same height. <em>Note: This approach is more complex to maintain in a design system.</em>';
+                
+                iosInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, both buttons use equal <code>.padding()</code>. The outlined button uses <code>.overlay()</code> with <code>.stroke()</code> which doesn\'t affect layout dimensions. Heights match naturally based on content + padding.';
+                
+                androidInfoNote.innerHTML = '<strong>How it works:</strong> Without fixed height, <code>Button</code> and <code>OutlinedButton</code> share the same <code>contentPadding</code>. Compose\'s <code>OutlinedButton</code> includes the border within its layout, so both components calculate the same height from content + padding.';
+            }
+            
+            // Update button display
+            updateButtons();
+        }
+        
+        updateButtons();
+        
+        window.addEventListener('resize', () => {
+            setTimeout(updateButtons, 10);
+        });
+    </script>
+</body>
+</html>
